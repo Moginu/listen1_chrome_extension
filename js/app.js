@@ -894,8 +894,10 @@ const main = () => {
         }
         $scope.enableGlobalShortCut = localStorage.getObject('enable_global_shortcut');
         $scope.enableLyricFloatingWindow = localStorage.getObject('enable_lyric_floating_window');
+        $scope.enableMiniPlayer = localStorage.getObject('enable_mini_player');
         $scope.applyGlobalShortcut();
         $scope.openLyricFloatingWindow();
+        $scope.toggleMiniPlayer();
       };
 
       $scope.saveLocalSettings = () => {
@@ -1291,6 +1293,24 @@ const main = () => {
         ipcRenderer.send('control', message);
       };
 
+      $scope.toggleMiniPlayer = (toggle) => {
+        if (typeof chrome !== 'undefined') {
+          return;
+        }
+        let message = '';
+        if (toggle === true) {
+          $scope.enableMiniPlayer = !$scope.enableMiniPlayer;
+        }
+        if ($scope.enableMiniPlayer === true) {
+          message = 'enable_mini_player';
+        } else {
+          message = 'disable_mini_player';
+        }
+        localStorage.setObject('enable_mini_player', $scope.enableMiniPlayer);
+        const { ipcRenderer } = require('electron');
+        ipcRenderer.send('control', message);
+      };
+
       if (typeof chrome === 'undefined') {
         require('electron').ipcRenderer.on('globalShortcut', (event, message) => {
           if (message === 'right') {
@@ -1506,6 +1526,15 @@ const main = () => {
     }),
   ]);
 
+  app.directive('miniPlayer', ['$window',
+	($window) => ({
+	  restrict: 'EA',
+	  scope: {
+		message:
+	  },
+	})
+  ]);
+
   app.directive('infiniteScroll', ['$window', '$rootScope',
     ($window, $rootScope) => ({
       restrict: 'EA',
@@ -1637,6 +1666,7 @@ const main = () => {
     ($http, $scope, $timeout, angularPlayer, loWeb) => {
       $scope.myplaylists = [];
       $scope.favoriteplaylists = [];
+      $scope.enableMiniPlayer = localStorage.getObject('enable_mini_player');
 
       $scope.loadMyPlaylist = () => {
         loWeb.get('/show_myplaylist').success((data) => {
