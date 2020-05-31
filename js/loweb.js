@@ -90,6 +90,15 @@ ngloWebManager.factory('loWeb', ['$rootScope', '$log', '$http', '$httpParamSeria
           success: fn => fn({result})
         };
       }
+      if (path === '/login') {
+        console.log(url)
+        const source = getParameterByName('source', url);
+        const provider = getProviderByName(source);
+        const result = provider.login();
+        return {
+          success: fn => fn({result})
+        };
+      }
       return null;
     },
     post(request) {

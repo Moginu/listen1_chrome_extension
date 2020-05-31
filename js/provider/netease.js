@@ -454,29 +454,39 @@ function build_netease() {
   }
 
 
-  function ne_Login(username,pw_encrypt) {
+  //function ne_Login(username,pw_encrypt) {
+  function ne_Login() {
 
-    const deferred = $q.defer();
-    const url = 'https://music.163.com/weapi/login';
-    data = {
-        'username': username,
-        'password': pw_encrypt,
-        'rememberLogin': 'true'
-    }
+    console.log('ne_Login')
+    const { app ,BrowserWindow } = require('electron').remote
 
- 
-    $http({
-      method: 'POST',
-      url,
-      headers: login_headers
-    }).then((res) => {
-      let result = res.data;
-      console.log(res.data)
-      deferred.resolve(result);
-    }, (err) => {
-      deferred.reject(err);
-    });
-    return deferred.promise;
+    let win = new BrowserWindow({
+      width: 800,
+      height: 600,
+    })
+  
+    win.loadFile('listen1_chrome_extension/login.html')
+    // const deferred = $q.defer();
+    // const url = 'https://music.163.com/weapi/login';
+    // data = {
+    //     'username': username,
+    //     'password': pw_encrypt,
+    //     'rememberLogin': 'true'
+    // }
+
+
+    // $http({
+    //   method: 'POST',
+    //   url,
+    //   headers: login_headers
+    // }).then((res) => {
+    //   let result = res.data;
+    //   console.log(res.data)
+    //   deferred.resolve(result);
+    // }, (err) => {
+    //   deferred.reject(err);
+    // });
+    // return deferred.promise;
   }
 
   return {

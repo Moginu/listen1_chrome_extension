@@ -1673,7 +1673,9 @@ const main = () => {
         });
       };
       $scope.login = () =>{
-        login.login();
+        loWeb.get('/login?source=netease').success((data) =>{
+            console.log('login in')
+        });
       }
       $scope.$watch('current_tag', (newValue, oldValue) => {
         if (newValue !== oldValue) {
