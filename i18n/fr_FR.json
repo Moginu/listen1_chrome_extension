@@ -58,6 +58,7 @@
  "_RECOVER_FROM_LOCAL_FILE": "Récuperer par un fichier local",
  "_RECOVER_FROM_GITHUB_GIST": "Récuperer par un Github Gist",
  "_CONNECT_TO_GITHUB": "Connecter à Github.com",
+ "_CONNECT_TO_NETEASE": "Connecter à netease",
  "_STATUS": "Statut",
  "_RECONNECT": "Reconnecter",
  "_CANCEL_CONNECT": "Annuler la connexion",

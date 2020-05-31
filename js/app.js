@@ -14,7 +14,7 @@ const main = () => {
     return value && JSON.parse(value);
   };
 
-  const app = angular.module('listenone', ['angularSoundManager', 'ui-notification', 'loWebManager', 'cfp.hotkeys', 'lastfmClient', 'githubClient', 'pascalprecht.translate']);
+  const app = angular.module('listenone', ['angularSoundManager', 'ui-notification', 'loWebManager', 'cfp.hotkeys', 'lastfmClient', 'githubClient', 'pascalprecht.translate','loWebManager','login']);
 
   app.config([
     '$compileProvider',
@@ -179,10 +179,8 @@ const main = () => {
       $scope.dialog_title = '';
 
       $scope.isDoubanLogin = false;
-
       $scope.lastfm = lastfm;
       $scope.github = github;
-
       $scope.$on('isdoubanlogin:update', (event, data) => {
         $scope.isDoubanLogin = data;
       });
@@ -352,10 +350,10 @@ const main = () => {
           });
         }
 
-        // if (dialog_type === 2) {
-        //   $scope.dialog_title = '登录豆瓣';
-        //   $scope.dialog_type = 2;
-        // }
+        if (dialog_type === 2) {
+          $scope.dialog_title = '登录网易云';
+          $scope.dialog_type = 2;
+        }
 
         if (dialog_type === 3) {
           $scope.dialog_title = $translate.instant('_EDIT_PLAYLIST');
@@ -1658,8 +1656,8 @@ const main = () => {
   ]);
 
   app.controller('MyPlayListController', ['$http', '$scope', '$timeout',
-    'angularPlayer', 'loWeb',
-    ($http, $scope, $timeout, angularPlayer, loWeb) => {
+    'angularPlayer', 'loWeb','login',
+    ($http, $scope, $timeout, angularPlayer, loWeb,login) => {
       $scope.myplaylists = [];
       $scope.favoriteplaylists = [];
 
@@ -1674,7 +1672,9 @@ const main = () => {
           $scope.favoriteplaylists = data.result;
         });
       };
-
+      $scope.login = () =>{
+        login.login();
+      }
       $scope.$watch('current_tag', (newValue, oldValue) => {
         if (newValue !== oldValue) {
           if (newValue === '1') {

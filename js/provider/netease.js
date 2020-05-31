@@ -1,10 +1,22 @@
 /* global aesjs chrome DOMParser getParameterByName */
 /* global sub btoa bigInt2str dup equalsInt int2bigInt mod mult powMod str2bigInt rightShift_ */
 function build_netease() {
+
+  const login_headers = {
+    'Accept': '*/*',
+    'Accept-Encoding': 'gzip,deflate,sdch',
+    'Accept-Language': 'zh-CN,zh;q=0.8,gl;q=0.6,zh-TW;q=0.4',
+    'Connection': 'keep-alive',
+    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    'Host': 'music.163.com',
+    'Referer': 'http://music.163.com/',
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36'
+  };
+  
+
   function ne_show_playlist(url, hm) {
     const order = 'hot';
     const offset = getParameterByName('offset', url);
-
     let target_url = '';
     if (offset != null) {
       target_url = `http://music.163.com/discover/playlist/?order=${order}&limit=35&offset=${offset}`;
@@ -441,6 +453,32 @@ function build_netease() {
     }
   }
 
+
+  function ne_Login(username,pw_encrypt) {
+
+    const deferred = $q.defer();
+    const url = 'https://music.163.com/weapi/login';
+    data = {
+        'username': username,
+        'password': pw_encrypt,
+        'rememberLogin': 'true'
+    }
+
+ 
+    $http({
+      method: 'POST',
+      url,
+      headers: login_headers
+    }).then((res) => {
+      let result = res.data;
+      console.log(res.data)
+      deferred.resolve(result);
+    }, (err) => {
+      deferred.reject(err);
+    });
+    return deferred.promise;
+  }
+
   return {
     show_playlist: ne_show_playlist,
     get_playlist,
@@ -448,6 +486,7 @@ function build_netease() {
     bootstrap_track: ne_bootstrap_track,
     search: ne_search,
     lyric: ne_lyric,
+    login:ne_Login,
   };
 }
 

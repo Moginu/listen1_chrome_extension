@@ -58,6 +58,7 @@
  "_RECOVER_FROM_LOCAL_FILE": "从本地文件导入",
  "_RECOVER_FROM_GITHUB_GIST": "从Github Gist导入",
  "_CONNECT_TO_GITHUB": "连接到Github.com",
+ "_CONNECT_TO_NETEASE": "连接到网易云",
  "_STATUS": "状态",
  "_RECONNECT": "重新连接",
  "_CANCEL_CONNECT": "取消连接",
