@@ -454,18 +454,9 @@ function build_netease() {
   }
 
 
-  //function ne_Login(username,pw_encrypt) {
   function ne_Login() {
-
     console.log('ne_Login')
-    const { app ,BrowserWindow } = require('electron').remote
 
-    let win = new BrowserWindow({
-      width: 800,
-      height: 600,
-    })
-  
-    win.loadFile('listen1_chrome_extension/login.html')
     // const deferred = $q.defer();
     // const url = 'https://music.163.com/weapi/login';
     // data = {

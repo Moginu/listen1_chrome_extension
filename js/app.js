@@ -1673,6 +1673,19 @@ const main = () => {
         });
       };
       $scope.login = (source) =>{
+
+        const { app ,BrowserWindow } = require('electron').remote
+
+        let win = new BrowserWindow({
+          width: 800,
+          height: 600,
+        })
+      
+        win.loadFile('listen1_chrome_extension/login.html')
+        dummy = {
+          username:"123",
+          password:"123"
+        }
         loWeb.get('/login?source='+source).success((data) =>{
         });
       }
@@ -1693,6 +1706,23 @@ const main = () => {
       });
     },
   ]);
+
+  function LoginController($scope, $element, $attrs) {
+    var ctrl = this;
+  
+  
+    ctrl.onLogin = function() {
+      console.log('fuck you')
+    };
+  
+  }
+  
+
+  app.component('loginComponent',{
+      templateUrl:'listen1_chrome_extension/login.html',
+      controller: LoginController,
+    });
+
 
   app.controller('PlayListController', ['$http', '$scope', '$timeout',
     'angularPlayer', 'loWeb',
