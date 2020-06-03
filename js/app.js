@@ -1672,9 +1672,8 @@ const main = () => {
           $scope.favoriteplaylists = data.result;
         });
       };
-      $scope.login = () =>{
-        loWeb.get('/login?source=netease').success((data) =>{
-            console.log('login in')
+      $scope.login = (source) =>{
+        loWeb.get('/login?source='+source).success((data) =>{
         });
       }
       $scope.$watch('current_tag', (newValue, oldValue) => {
